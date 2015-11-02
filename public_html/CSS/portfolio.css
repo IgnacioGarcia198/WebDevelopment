@@ -1,0 +1,161 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28-Oct-2015, 13:13:11
+    Author     : USUARIO
+*/
+body {
+    background-color: pink;
+    //background-size: 
+}
+#title {
+    background-color: lawngreen;
+    //padding-bottom: 10px; 
+    padding: 20px 0;
+    margin-bottom: 0;
+}
+
+nav {
+   text-align: center;
+}
+
+nav .nav {
+    list-style-type: none;
+    color: white;
+    display: inline-block;
+    margin: 0;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: mediumorchid;
+    border-radius: 20px;
+    vertical-align: middle;
+    overflow: hidden;
+    //height: fit-content;
+}
+
+nav .nav li {
+   display: inline-block;
+   border-radius: 10px;
+   background-color: orange;
+   color: white;
+   padding: 5px 10px;
+   margin: 0 10px;
+   font-weight: bold;
+   white-space: nowrap;
+   overflow: hidden;
+}
+
+nav .nav li:hover {
+   cursor: pointer;
+   box-shadow: 0 0 0 2px black; 
+}
+
+#categories {
+    background-color: pink;
+    float: top;
+}
+
+.category {
+    display: none;       
+}
+
+.category iframe {
+    //background-color: pink;
+    //border: none;
+    width: 100%;
+    //height: 900px;
+    //overflow-y: ;
+    //overflow: visible;
+}
+
+.category.selected {
+    display: block;       
+}
+
+.circlediv {
+    display:table; 
+    border-radius: 50%;  
+    width: 20vw; 
+    height: 20vw;
+    overflow: hidden;
+    padding: 3vw;
+    //padding:0px;
+    //margin:0px;
+    //position: absolute;
+    //width: 200px;  // this things will be triggered by script
+    //height: 200px;
+}
+
+.circlediv:hover {
+    cursor:  move;
+}
+
+.circlediv div:first-child {
+    display:table-cell;
+    vertical-align:middle; 
+    text-align: justify;
+}
+
+.circle{
+    display: block;
+    position:absolute;
+    background:red;
+    padding:0px;
+    margin:0px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .circle2 {
+    display:table; 
+    //border-radius: 50%;  
+    //width: 20vw; 
+    //height: 20vw;
+    overflow: hidden;
+    //padding: 3vw;
+    //padding:0px;
+    //margin:0px;
+    position: absolute;
+    //width: 200px;  // this things will be triggered by script
+    //height: 200px;
+  }
+  
+  .circle2:hover {
+    cursor:  move;
+}
+  
+  .circle2 div:first-child {
+    display:table-cell;
+    vertical-align:middle; 
+    text-align: justify;
+    //visibility: hidden;
+  }
+  
+  .circle2 div:first-child.oneline {
+    display:table-cell;
+    vertical-align:middle; 
+    text-align: center;
+    //visibility: hidden;
+  }
+  
+  .circle2 div:first-child .placeholder {
+      display: none;
+  }
+  
+  .circle2 div:first-child .txt {
+      display: inline;
+  }
+  
+  .circle2 div:first-child.oneline .placeholder {
+      display: inline;
+  }
+  
+  .circle2 div:first-child.oneline .txt {
+      display: none;
+  }
+  
+//style="display:table-cell;vertical-align:middle; text-align: center;"
+
