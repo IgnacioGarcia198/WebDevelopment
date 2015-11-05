@@ -110,7 +110,7 @@ nav .nav li:hover {
   }
   
   .circle2 {
-    display:table; 
+    //display:table; 
     //border-radius: 50%;  
     //width: 20vw; 
     //height: 20vw;
@@ -118,7 +118,8 @@ nav .nav li:hover {
     //padding: 3vw;
     //padding:0px;
     //margin:0px;
-    position: absolute;
+    //position: absolute;
+    //position: inherit;
     //width: 200px;  // this things will be triggered by script
     //height: 200px;
   }
@@ -128,10 +129,27 @@ nav .nav li:hover {
 }
   
   .circle2 div:first-child {
-    display:table-cell;
+    //display:table-cell;
     vertical-align:middle; 
     text-align: justify;
     //visibility: hidden;
+  }
+  
+  .circleTest {
+    //display:table-cell;
+    vertical-align:middle; 
+    text-align: justify;
+    width: 20vw; 
+    height: 20vw;
+    overflow: hidden;
+    padding: 3vw;
+    border-radius: 50%; 
+    background-color: red;
+    //visibility: hidden;
+  }
+  
+  #exper td {
+      padding: 10px;
   }
   
   .circle2 div:first-child.oneline {
@@ -151,6 +169,8 @@ nav .nav li:hover {
   
   .circle2 div:first-child.oneline .placeholder {
       display: inline;
+      font-weight: bold;
+      font-size: 2em;
   }
   
   .circle2 div:first-child.oneline .txt {
@@ -158,4 +178,6 @@ nav .nav li:hover {
   }
   
 //style="display:table-cell;vertical-align:middle; text-align: center;"
-
+#ballCells {
+    border: none;
+}
