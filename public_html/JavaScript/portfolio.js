@@ -147,7 +147,7 @@ var radius = 130;
  * @type Function|portfolio_L138.Ball
  */
 Ball = (function() {
-    function Ball(radius, color, text, x, y, dx, dy,format, i) {
+    function Ball(radius, color, text, x, y, dx, dy, i) {
         this.center = {x: x, y: y};
         this.radius = radius;
         this.color = color;
@@ -162,18 +162,23 @@ Ball = (function() {
         else {
             this.dom = $('<div class="circle2"><div>'+text+'</div></div>').appendTo('#ground');
         }*/
-        this.dom = $('<div class="circle2"' + ' data-i=' + i + '><div'+ (format ? ' class="'+format+'"' : '') + '><span class="placeholder">'+text+'</span><span class="txt"></span></div></div>').appendTo('#ground');
-        //this.dom.css({padding: (radius*0.3)+'px'});
+        //this.dom = $('<div class="circle2"' + ' data-i=' + i + '><div'+ (format ? ' class="'+format+'"' : '') + '><span class="placeholder">'+text+'</span><span class="txt"></span></div></div>').appendTo('#ground');
+        this.dom = $('<div class="circle4"' + ' data-i=' + i + '><div>'+text+'</div></div>').appendTo('#ground');
+//this.dom.css({padding: (radius*0.3)+'px'});
         //this.dom = $('<p class="circle">'+text+'</p>').appendTo('#ground');
         //this.dom = $('<div class="circle2"><div'+ 'class="oneline">'+text+'</div></div>').appendTo('#ground');
-        this.dom.width(radius*2);
-        this.dom.height(radius*2);
+        //this.dom.width(radius*2);
+        //this.dom.height(radius*2);
         var pad = radius*0.3;
-        this.dom.css({'border-radius': radius, background: color, padding: pad});
+        var innerDiv = this.dom.find(':first-child');
+        innerDiv.width(radius*2);
+        innerDiv.height(radius*2);
+        innerDiv.css({'border-radius': radius, background: color, padding: pad});
         this.boundWidth = $('#ground').width();
         this.boundHeight = $('#ground').height();
         
         this.putCenterAt(x, y);
+        
     }
     
     Ball.prototype.putCenterAt = function(x, y) {
@@ -184,10 +189,10 @@ Ball = (function() {
     
     Ball.prototype.setColor = function(color) {
         if(color) {
-          this.dom.css({background: color});  
+          this.dom.find(':first-child').css({background: color});  
         }
         else {
-            this.dom.css({background: this.color});
+            this.dom.find(':first-child').css({background: this.color});
         }  
     };
     
@@ -260,9 +265,11 @@ function balls() {
         var y = randMinMax(radius, boundH - radius);
         var dx = randMinMax(1, 4);
         var dy = randMinMax(1, 4);
-        bal = new Ball(radius, '#' + Math.floor(Math.random() * 16777215).toString(16), "Text " + i, x, y, dx, dy, 'oneline', i);
+        //bal = new Ball(radius, '#' + Math.floor(Math.random() * 16777215).toString(16), "Text " + i, x, y, dx, dy, 'oneline', i);
+        //bal = new Ball(radius, '#' + Math.floor(Math.random() * 16777215).toString(16), "Text " + i, x, y, dx, dy, i);
+        bal = new Ball(radius, '#' + Math.floor(Math.random() * 16777215).toString(16), "Text " + i, x, y, dx, dy, i);
         console.log("i donot know " + lines[i]);
-        bal.dom.find('.txt').html(lines[i]);
+        //bal.dom.find('.txt').html(lines[i]);
         bal.dom.draggable();
         bal.dom.on('mousedown', function() {
             //alert('hello');
@@ -288,7 +295,7 @@ function balls() {
             //console.log($(this).toString());
             //dragging = false;
             var ind = $(this).attr('data-i');
-            if(!ballsarray[ind].docked) {
+            //if(!ballsarray[ind].docked) {
                 console.log($(this).attr('data-i'));
                 var thisBall = ballsarray[ind];
                 var parentOffset = $(this).parent().offset();
@@ -314,7 +321,8 @@ function balls() {
             }
             //this.putCenterAt();
             //console.log(ballsarray[ind].radius);
-        });
+        //}
+                );
         /*var $circles = $('#ground').find('.circle2');
         $circles.on('mousedown', function() {
             console.log($(this).attr('data-i'));
@@ -330,6 +338,7 @@ function balls() {
         ballsarray.push(bal);
         
     }
+    
     writeBallCells();
     //$(this,callback);
     loop();
@@ -354,8 +363,8 @@ function initAboutMe() {
             var thisBall = ballsarray[dragging];
             
             thisBall.dom.draggable("destroy");
-            thisBall.dom.find(':first-child').removeClass('oneline');
-            console.log(thisBall.dom.find('.txt').html());
+            //thisBall.dom.find(':first-child').removeClass('oneline');
+            //console.log(thisBall.dom.find('.txt').html());
             // We check if "dragging" is 0 or ballsarray[dragging-1] is false.
             // Meaning: We are dropping the next minimum number of div in the order.
             /*if(dragging === false) {
@@ -448,7 +457,8 @@ function carryDivToPlace(ballIndex) {
     //var ballCells = $('#ground').find('#ballCells');
     console.log("TABLE BEFORE: \n" + ballCells.html());
     var firstEmpty = ballCells.find('.empty').filter(':first');
-    firstEmpty.html(ballsarray[ballIndex].dom.firstChild()); 
+    //firstEmpty.html(ballsarray[ballIndex].dom.firstChild()); 
+    firstEmpty.html(ballsarray[ballIndex].dom.find(':first-child')); 
     console.log("should be td " + ballsarray[ballIndex].dom.parent());
     
     console.log("just put in table using index " + ballIndex + ": " + firstEmpty.html());

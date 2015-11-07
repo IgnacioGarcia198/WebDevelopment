@@ -110,7 +110,7 @@ nav .nav li:hover {
   }
   
   .circle2 {
-    //display:table; 
+    display:table; 
     //border-radius: 50%;  
     //width: 20vw; 
     //height: 20vw;
@@ -129,16 +129,27 @@ nav .nav li:hover {
 }
   
   .circle2 div:first-child {
-    //display:table-cell;
+    display:table-cell;
     vertical-align:middle; 
     text-align: justify;
     //visibility: hidden;
   }
   
+  .circlesTable td {
+    vertical-align:middle; 
+    text-align: center;
+        width: 20vw; 
+        height: 20vw;
+        overflow: hidden;
+        padding: 3vw;
+        border-radius: 50%; 
+        background-color: red;
+  }
+  
   .circleTest {
     //display:table-cell;
     vertical-align:middle; 
-    text-align: justify;
+    text-align: center;
     width: 20vw; 
     height: 20vw;
     overflow: hidden;
@@ -152,6 +163,9 @@ nav .nav li:hover {
       padding: 10px;
   }
   
+  #exper2 td {
+      padding: 10px;
+  }
   .circle2 div:first-child.oneline {
     display:table-cell;
     vertical-align:middle; 
@@ -179,5 +193,100 @@ nav .nav li:hover {
   
 //style="display:table-cell;vertical-align:middle; text-align: center;"
 #ballCells {
-    border: none;
+    border: none;  
 }
+
+#ballCells td div:first-child {
+   vertical-align:middle; 
+    text-align: justify;
+    //width: 20vw; 
+    //height: 20vw;
+    overflow: hidden;
+    //padding: 3vw;
+    //border-radius: 50%; 
+    //background-color: red;
+    //font-size: 2em;
+}
+
+.circle3 {
+    //display:table-cell;
+    vertical-align:middle; 
+    text-align: justify;
+    //width: 20vw; 
+    //height: 20vw;
+    overflow: hidden;
+    //padding: 3vw;
+    //border-radius: 50%; 
+    background-color: red;
+    position: absolute;
+    //visibility: hidden;
+  }
+  
+  .circle3.oneline {
+    //display:table-cell;
+    //vertical-align:middle; 
+    text-align: center;
+    //visibility: hidden;
+  }
+  
+  .circle3 .placeholder {
+      display: none;
+  }
+  
+  .circle3 .txt {
+      display: inline;
+  }
+  
+  .circle3.oneline .placeholder {
+      display: inline;
+      font-weight: bold;
+      font-size: 2em;
+  }
+  
+  .circle3.oneline .txt {
+      display: none;
+  }
+  
+  .circle4 {
+    display: table;
+    position: absolute;
+    vertical-align:middle; 
+    text-align: center;
+  }
+  
+  .circle4 div:first-child {
+    display: table-cell;
+    vertical-align:middle; 
+    text-align: center;
+    //width: 20vw; 
+    //height: 20vw;
+    overflow: hidden;
+    //padding: 3vw;
+    //border-radius: 50%; 
+    //background-color: red;
+    font-size: 2em;
+  }
+  
+  .circle5 {
+    //display: table;
+    position: absolute;
+    vertical-align:middle; 
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .circle5 td {
+    //display: table-cell;
+    vertical-align:middle; 
+    text-align: center;
+    //width: 20vw; 
+    //height: 20vw;
+    overflow: hidden;
+    //padding: 3vw;
+    //border-radius: 50%; 
+    //background-color: red;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+
