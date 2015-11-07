@@ -163,14 +163,15 @@ Ball = (function() {
             this.dom = $('<div class="circle2"><div>'+text+'</div></div>').appendTo('#ground');
         }*/
         //this.dom = $('<div class="circle2"' + ' data-i=' + i + '><div'+ (format ? ' class="'+format+'"' : '') + '><span class="placeholder">'+text+'</span><span class="txt"></span></div></div>').appendTo('#ground');
-        this.dom = $('<div class="circle4"' + ' data-i=' + i + '><div>'+text+'</div></div>').appendTo('#ground');
+        //this.dom = $('<div class="circle4"' + ' data-i=' + i + '><div>'+text+'</div></div>').appendTo('#ground');
+        this.dom = $('<table class="circle5"' + ' data-i=' + i + '><tr><td>'+text+'</td></tr></table>').appendTo('#ground');
 //this.dom.css({padding: (radius*0.3)+'px'});
         //this.dom = $('<p class="circle">'+text+'</p>').appendTo('#ground');
         //this.dom = $('<div class="circle2"><div'+ 'class="oneline">'+text+'</div></div>').appendTo('#ground');
         //this.dom.width(radius*2);
         //this.dom.height(radius*2);
         var pad = radius*0.3;
-        var innerDiv = this.dom.find(':first-child');
+        var innerDiv = this.dom.find('td');
         innerDiv.width(radius*2);
         innerDiv.height(radius*2);
         innerDiv.css({'border-radius': radius, background: color, padding: pad});
@@ -189,10 +190,10 @@ Ball = (function() {
     
     Ball.prototype.setColor = function(color) {
         if(color) {
-          this.dom.find(':first-child').css({background: color});  
+          this.dom.find('td').css({background: color});  
         }
         else {
-            this.dom.find(':first-child').css({background: this.color});
+            this.dom.find('td').css({background: this.color});
         }  
     };
     
@@ -424,46 +425,94 @@ function initAboutMe() {
 
 var percPad = 0.1;
 function writeBallCells() {
-    var vpw = $(window).width();
+    var vpw = $('#ground').width();//$(window).width();
     //var vpw = $('#ground').width();
     //ballsInARow = vpw/2.2/radius;//Math.floor(vpw*0.9/ballsarray.length);
     
     var wh = Math.round(radius*2*(1+percPad));
     var ballsInARow = Math.floor(vpw/wh);
+    placeForBall(ballsInARow);
     console.log('balls in a row: ' + ballsInARow);
     var rows = Math.ceil(ballsarray.length/ballsInARow);
     // HERE WE WRITE THE TABLE 
     ballCells = $('#ground').find('#ballCells');
+    //ballCells
     var ballCellsHtml = [];
-    for(var i = 0; i < rows; i ++) {
+    /*for(var i = 0; i < rows; i ++) {
         ballCellsHtml.push('<tr>');
-        for(var j = 0; j < ballsInARow; j ++) {
+        /*for(var j = 0; j < ballsInARow; j ++) {
             var txt = '<td class="empty" style="width: ' + wh + '; height: ' + wh + ';"></td>';
             ballCellsHtml.push(txt);
             console.log("writing td for ball");
         }
         ballCellsHtml.push('</tr>');
-    }
+    }*/
     var txTable = ballCellsHtml.join("");
     console.log("the table: \n" + txTable);
     ballCells.html(txTable);
     console.log("AND TABLE IS: \n" + ballCells);
 }
 
+function placeForBall(ballsinarow) {
+    /*if(placeForBall.cont == undefined) {
+        console.log("INITIALIZING COUNTER");
+        placeForBall.cont = 0;
+    }*/
+    if(ballsinarow) {
+        placeForBall.inarow = ballsinarow;
+        return false;
+    }
+    else {
+        var c = placeForBall.cont;
+        var ina = placeForBall.inarow;
+        console.log(typeof(placeForBall.cont));
+        console.log(typeof(placeForBall.inarow));
+        console.log("CONT: " + placeForBall.cont);
+        console.log("INAROW: " + placeForBall.inarow);
+        if(placeForBall.cont < placeForBall.inarow) {
+            console.log("cont lesser");
+        }
+        else {
+            console.log("cont greater");
+        }
+        if((placeForBall.cont === placeForBall.inarow) || (placeForBall.cont == undefined)) {
+            console.log("NOW NEW ROW");
+            var tr = $('<tr></tr>');
+            ballCells.append(tr);
+            placeForBall.cont = 1;
+            return tr;
+        }
+        else {
+            console.log("SAME ROW");
+            placeForBall.cont ++;
+            return ballCells.find('tr:last');
+        }
+    }
+}
+
+//var cont = 0;
 function carryDivToPlace(ballIndex) {
     // For this, the easiest could be to make as many tds and ths as calculated
     // And then, we searh for td.empty:first inside the table, and each time we put a div in a cell we remove the class
     // .empty  ==> Pretty easy man!!
     //var ballCells = $('#ground').find('#ballCells');
     console.log("TABLE BEFORE: \n" + ballCells.html());
-    var firstEmpty = ballCells.find('.empty').filter(':first');
+    //var firstEmpty = ballCells.find('.empty').filter(':first');
     //firstEmpty.html(ballsarray[ballIndex].dom.firstChild()); 
-    firstEmpty.html(ballsarray[ballIndex].dom.find(':first-child')); 
-    console.log("should be td " + ballsarray[ballIndex].dom.parent());
+    //firstEmpty.html(ballsarray[ballIndex].dom.find('td')); 
+    var thisTd = ballsarray[ballIndex].dom.find('td').appendTo(placeForBall());
+    thisTd.html(lines[ballIndex]);
+    //cont ++;
+    /*if(cont === ballsInARow) {
+        firstEmpty.removeClass('empty');
+        cont = 0;
+    }*/
     
-    console.log("just put in table using index " + ballIndex + ": " + firstEmpty.html());
-    firstEmpty.removeClass("empty");
-    console.log("\n\nAnd it was put in td: " + firstEmpty.parent());
+    console.log("should be tr " + ballsarray[ballIndex].dom.parent());
+    
+    //console.log("just put in table using index " + ballIndex + ": " + firstEmpty.html());
+    //firstEmpty.removeClass("empty");
+    //console.log("\n\nAnd it was put in td: " + firstEmpty.parent());
     console.log("the new table: \n" + ballCells.html());
     // Now the problem could be putting the enough padding It needs to be 10% or 20% of the radius.
 }
