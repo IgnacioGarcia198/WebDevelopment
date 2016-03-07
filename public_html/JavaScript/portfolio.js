@@ -22,12 +22,6 @@ function writemissing() {
     document.getElementById("categories").innerHTML = txttable.join("");
 }
 writemissing();
-
-//$iframes.load($iframes.attr('id')+".html");
-//console.log("iframes ids: " + $iframes.attr('id'));
-//var id = $iframes.attr('id');
-//$(this).attr('id').load($iframes.attr('id')+".html");
-//alert(document.getElementById("categories").innerHTML);
 var $selecat;
 var $iframes;
     
@@ -36,22 +30,7 @@ var $iframes;
 function loadCategories() {
     $iframes = $('#categories').find('.category');
     for(var i in $iframes) {
-        //var ifri = $iframes.eq(i);
-        /*var xhr= new XMLHttpRequest();
-        xhr.open('GET', ifri.attr('id')+'.html', true);
-        xhr.onreadystatechange= function() {
-            if (this.readyState!==4) return;
-            if (this.status!==200) return; // or whatever error handling you want
-            ifri.innerHTML= this.responseText;
-        };
-        xhr.send();*/
         var ifri = $iframes.eq(i); 
-        /*var el = document.createElement("div");
-        //alert(el);
-        console.log(el);
-        var t = document.createTextNode("This is a paragraph.");
-        el.appendChild(t);
-        ifri.html(el);*/
         console.log(ifri);
         ifri.load(ifri.attr('id')+".html");
     }
@@ -61,9 +40,6 @@ function loadCategories() {
 $(document).ready(function() {
     //$iframes = $('#categories').find('.category');
     loadCategories();
-    
-    //$iframes.selector('#')
-    //alert($iframes.filter('#aboutme').html());
     $('#categories').find('.category', function() {
         $(this).load($(this).attr('id')+".html");
         console.log("iframe id: " + $(this).attr('id'));
@@ -72,8 +48,7 @@ $(document).ready(function() {
     $iframeToShow.addClass('selected');
     $lis.on('click', selectCategory);
     $menu.on('mouseenter', expand);
-    
-    
+     
     /**
      * shows the page of the category selected by click in the menu
      * @returns {undefined}
@@ -92,36 +67,22 @@ $(document).ready(function() {
 
     }
     
-
     /**
      * expands the menu
      * @returns {undefined}
      */
     function expand() {
-        //$lis.show('slide');
         $lis.slideDown(200);
-        /*$tohide = $lis.filter(':visible');
-        if($tohide.length !== $lis.length) {
-            $lis.filter(':hidden').slideToggle(200);
-        }*/
-        //$lis.slideToggle(200);//show('slide');
-        //$menu.css('display','inline-block');
-    }  
-    /*$('#drag').css({color: 'blue'});
-    var boundH = $('#ground').height();
-    var boundW = $('#ground').width();
-    for(var i = 0; i < nballs; i ++) {
-        var radius = randMinMax(50, 200);
-        var x = randMinMax(radius, boundW - radius);
-        var y = randMinMax(radius, boundH - radius);
-        var dx = randMixMax(1, 4);
-        var dy = randMixMax(1, 4);
-        ballsarray.push(new Ball(radius, '#' + Math.floor(Math.random() * 16777215).toString(16), "hello there", x, y, dx, dy));
-    }
-    loop();*/
-    
+    }     
 });
 
+/**
+ * Gives a random number between min and max, both included.
+ * @param {number} min 
+ * @param {number} max
+ * @param {number} npos  Number of decimal positions (precission)
+ * @returns {Number}
+ */
 function randMinMax(min, max, npos) {
     var randval = Math.random()*(max-min)+min;
     if(npos) {
@@ -143,7 +104,7 @@ function randMinMax(min, max, npos) {
 
 var radius = 130;
 /*
- * 
+ * An object being a round div with some methods and fields
  * @type Function|portfolio_L138.Ball
  */
 Ball = (function() {
@@ -182,12 +143,23 @@ Ball = (function() {
         
     }
     
+    /**
+     * Put the center of the ball at x, y
+     * @param {type} x
+     * @param {type} y
+     * @returns {undefined}
+     */
     Ball.prototype.putCenterAt = function(x, y) {
         this.dom.css({top: Math.round(y - this.radius), left: Math.round(x - this.radius)});
         this.center.x = Math.round(x);
         this.center.y = Math.round(y);
     };
     
+    /**
+     * Change the color of the ball
+     * @param {type} color
+     * @returns {undefined}
+     */
     Ball.prototype.setColor = function(color) {
         if(color) {
           this.dom.find('td').css({background: color});  
@@ -197,6 +169,10 @@ Ball = (function() {
         }  
     };
     
+    /**
+     * Move the ball and if it reaches a border it rebounds
+     * @returns {undefined}
+     */
     Ball.prototype.moveAndRebound = function() {
         var radius = this.radius;
         if((this.center.x - radius < 0) || (this.center.x + radius > this.boundWidth)) {
@@ -208,10 +184,18 @@ Ball = (function() {
         this.putCenterAt(this.center.x+this.dx, this.center.y+this.dy);
     };
     
+    /**
+     * Stops the ball
+     * @returns {undefined}
+     */
     Ball.prototype.stop = function() {
         this.switchMove = false;
     };
     
+    /**
+     * Restarts the ball movement
+     * @returns {undefined}
+     */
     Ball.prototype.start = function() {
         
         this.switchMove = true;
@@ -238,7 +222,12 @@ var ballsarray = [];
     loop();
 });*/
 
-function circleTexts(f) {
+/**
+ * Get the text for the balls from a local text file
+ * @param {type} callback The function to execute at the end of this one.
+ * @returns {undefined}
+ */
+function circleTexts(callback) {
     //$('#drag').css({color: 'blue'});
     $.get('circleTexts.txt', function(data) {    
     lines = data.split("\n");
@@ -247,7 +236,7 @@ function circleTexts(f) {
         /*for(var n = 0; n < lines.length; n ++) {
            ballsarray[n].dom.find('.txt').html(lines[n]);
         }*/
-        f();
+        callback();
     });
     
     //f();
@@ -257,6 +246,10 @@ function circleTexts(f) {
     
 //}
 
+/**
+ * Generate an array of balls and define their behaviour.
+ * @returns {undefined}
+ */
 function balls() {
     var boundH = $('#ground').height(); 
     var boundW = $('#ground').width();
@@ -283,7 +276,7 @@ function balls() {
             var ind = $(this).attr('data-i');
             if(!ballsarray[ind].docked) { 
                 console.log($(this).attr('data-i'));
-                ballsarray[ind].stop();
+                ballsarray[ind].stop(); // When clicking on a ball, it stops moving.
                 dragging = ind;
             }
             //console.log(ballsarray[ind].radius);
@@ -346,6 +339,10 @@ function balls() {
     
 }
 
+/**
+ * Continuous movement for the balls
+ * @returns {undefined}
+ */
 loop = function () {
     //console.log("loop");
     for (var i = 0; i < ballsarray.length; i++) {
@@ -358,6 +355,11 @@ loop = function () {
 
 //var circleTexts = [];
 var lines = [];
+
+/**
+ * 
+ * @returns {undefined}
+ */
 function initAboutMe() {
     $( "#drop" ).droppable({
         drop: function( event, ui ) {
